@@ -1,0 +1,140 @@
+01:10:37 [INFO] variable/variable-section-periods → 200 (68.19s)
+01:10:39 [INFO] variable/variable-section-periods → 200 (1.55s)
+01:10:39 [INFO] variable-section-periods: strona 1/9
+01:10:42 [INFO] variable/variable-section-periods → 200 (2.19s)
+01:10:42 [INFO] variable-section-periods: strona 2/9
+01:10:45 [INFO] variable/variable-section-periods → 200 (2.84s)
+01:10:45 [INFO] variable-section-periods: strona 3/9
+01:10:49 [INFO] variable/variable-section-periods → 200 (3.46s)
+01:10:49 [INFO] variable-section-periods: strona 4/9
+01:10:55 [WARNING] Got events for closed stream <zmq.eventloop.zmqstream.ZMQStream object at 0x0000023FD830A9C0>
+01:14:38 [INFO] variable/variable-section-periods → 200 (0.27s)
+01:14:39 [INFO] variable/variable-section-periods → 200 (0.04s)
+01:14:39 [INFO] variable-section-periods: strona 1/9
+01:14:39 [INFO] variable/variable-section-periods → 200 (0.01s)
+01:14:39 [INFO] variable-section-periods: strona 2/9
+01:14:40 [INFO] variable/variable-section-periods → 200 (0.04s)
+01:14:40 [INFO] variable-section-periods: strona 3/9
+01:14:40 [INFO] variable/variable-section-periods → 200 (0.04s)
+01:14:40 [INFO] variable-section-periods: strona 4/9
+01:14:41 [INFO] variable/variable-section-periods → 200 (0.04s)
+01:14:41 [INFO] variable-section-periods: strona 5/9
+01:14:46 [INFO] variable/variable-section-periods → 200 (4.82s)
+01:14:46 [INFO] variable-section-periods: strona 6/9
+01:14:52 [INFO] variable/variable-section-periods → 200 (5.32s)
+01:14:52 [INFO] variable-section-periods: strona 7/9
+01:14:58 [INFO] variable/variable-section-periods → 200 (5.90s)
+01:14:58 [INFO] variable-section-periods: strona 8/9
+01:15:05 [INFO] variable/variable-section-periods → 200 (6.16s)
+01:15:05 [INFO] variable-section-periods: strona 9/9
+01:15:05 [INFO] dictionaries/periods-dictionary → 200 (0.02s)
+01:15:05 [INFO] dictionaries/periods-dictionary → 200 (0.02s)
+01:15:05 [INFO] variable/variable-section-position → 200 (0.04s)
+01:15:05 [INFO] variable/variable-section-position → 200 (0.08s)
+01:15:05 [INFO] variable/variable-section-position → 200 (0.04s)
+01:15:06 [INFO] variable/variable-section-position → 200 (1.07s)
+01:15:06 [INFO] variable/variable-section-position → 200 (0.07s)
+01:15:06 [INFO] Pobieranie: section=16, rok=2015, periods=12
+01:15:06 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:07 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:07 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:08 [INFO] variable/variable-data-section → 404 (1.04s)
+01:15:08 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:08 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:08 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:08 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:09 [INFO] variable/variable-data-section → 404 (1.03s)
+01:15:09 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:09 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:09 [INFO] variable/variable-data-section → 404 (0.02s)
+01:15:09 [INFO] Pobieranie: section=16, rok=2016, periods=12
+01:15:09 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:10 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:10 [INFO] variable/variable-data-section → 200 (0.06s)
+01:15:10 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:10 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:10 [INFO] variable/variable-data-section → 200 (0.06s)
+01:15:11 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:11 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:11 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:11 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:11 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:12 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:12 [INFO] Pobieranie: section=16, rok=2017, periods=12
+01:15:13 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:13 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:13 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:13 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:14 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:14 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:14 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:14 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:14 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:15 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:15 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:15 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:15 [INFO] Pobieranie: section=16, rok=2018, periods=12
+01:15:15 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:15 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:16 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:16 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:16 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:16 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:16 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:18 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:18 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:18 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:18 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:18 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:18 [INFO] Pobieranie: section=16, rok=2019, periods=12
+01:15:19 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:19 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:19 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:19 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:19 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:20 [INFO] variable/variable-data-section → 200 (1.06s)
+01:15:20 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:20 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:20 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:20 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:21 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:21 [INFO] variable/variable-data-section → 200 (0.06s)
+01:15:21 [INFO] Pobieranie: section=16, rok=2020, periods=12
+01:15:22 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:22 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:22 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:23 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:23 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:23 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:23 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:23 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:24 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:24 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:24 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:24 [INFO] variable/variable-data-section → 200 (0.06s)
+01:15:24 [INFO] Pobieranie: section=16, rok=2021, periods=12
+01:15:24 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:25 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:25 [INFO] variable/variable-data-section → 200 (0.06s)
+01:15:25 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:25 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:26 [INFO] variable/variable-data-section → 200 (0.06s)
+01:15:27 [INFO] variable/variable-data-section → 200 (1.07s)
+01:15:27 [INFO] variable/variable-data-section → 200 (0.05s)
+01:15:27 [INFO] variable/variable-data-section → 200 (0.05s)
+01:25:38 [INFO] variable/variable-section-periods → 200 (138.13s)
+01:26:16 [ERROR] No such comm target registered: jupyter.widget.control
+01:26:16 [WARNING] No such comm: 060b6b25-e297-4267-952e-93f3954c96ba
+01:29:23 [ERROR] No such comm target registered: jupyter.widget.control
+01:29:23 [WARNING] No such comm: c2a7e4e0-4fb2-41c0-95c0-c7cec49edb90
+01:29:36 [INFO] variable/variable-section-periods → 200 (3.97s)
+01:29:43 [INFO] variable/variable-section-periods → 200 (7.00s)
+01:29:43 [INFO] variable-section-periods: strona 1/1
+01:29:43 [INFO] dictionaries/periods-dictionary → 200 (0.05s)
+01:29:43 [INFO] dictionaries/periods-dictionary → 200 (0.02s)
+01:29:43 [INFO] variable/variable-section-position → 200 (0.04s)
+01:29:43 [INFO] variable/variable-section-position → 200 (0.08s)
+01:29:44 [INFO] variable/variable-section-position → 200 (0.04s)
+01:29:44 [INFO] variable/variable-section-position → 429 (0.01s)
+01:29:44 [WARNING] Rate limit (quota exceeded) — czekam 910s, wznawianie o 01:44:54
+01:32:04 [WARNING] Got events for closed stream <zmq.eventloop.zmqstream.ZMQStream object at 0x00000184CDF6AAE0>
