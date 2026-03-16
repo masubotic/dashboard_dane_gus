@@ -9,3 +9,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Secrets
+.env
+
+# My Files
+ARCHITECTURE.md
+.claude
