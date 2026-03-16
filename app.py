@@ -10,46 +10,51 @@ def load_data() -> pd.DataFrame:
     return pd.read_parquet("data/gus_data.parquet")
 
 
+def idx(options: list, keyword: str) -> int:
+    """Zwraca indeks pierwszej opcji zawierającej keyword (case-insensitive)."""
+    kw = keyword.lower()
+    for i, o in enumerate(options):
+        if kw in str(o).lower():
+            return i
+    return 0
+
+
 df = load_data()
 
 st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
 
 # ---------------------------------------------------------------------------
-# Sidebar — filtry
+# Filtry
 # ---------------------------------------------------------------------------
 
-with st.sidebar:
-    st.header("Filtry")
+fcol1, fcol2, fcol3 = st.columns(3)
 
-    przekroj = st.selectbox(
-        "Przekrój",
-        sorted(df["nazwa-przekroj"].dropna().unique()),
-    )
+przekroje = sorted(df["nazwa-przekroj"].dropna().unique())
+with fcol1:
+    przekroj = st.selectbox("Przekrój", przekroje, index=idx(przekroje, "COICOP 1999"))
 
-    df_p = df[df["nazwa-przekroj"] == przekroj]
+df_p = df[df["nazwa-przekroj"] == przekroj]
 
-    okres = st.selectbox(
-        "Okres",
-        sorted(df_p["opis-okres"].dropna().unique()),
-    )
+okresy = sorted(df_p["opis-okres"].dropna().unique())
+with fcol2:
+    okres = st.selectbox("Okres", okresy, index=idx(okresy, "styczeń - grudzień"))
 
-    df_p = df_p[df_p["opis-okres"] == okres]
+df_p = df_p[df_p["opis-okres"] == okres]
 
-    prezentacja = st.selectbox(
-        "Sposób prezentacji",
-        sorted(df_p["sposob-prezentacji"].dropna().unique()),
-    )
+prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
+with fcol3:
+    prezentacja = st.selectbox("Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny"))
 
-    df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
+df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
 
-    min_rok = int(df_p["id-rok"].min())
-    max_rok = int(df_p["id-rok"].max())
-    rok_od, rok_do = st.slider(
-        "Zakres lat",
-        min_value=min_rok,
-        max_value=max_rok,
-        value=(min_rok, max_rok),
-    )
+min_rok = int(df_p["id-rok"].min())
+max_rok = int(df_p["id-rok"].max())
+rok_od, rok_do = st.slider(
+    "Zakres lat",
+    min_value=min_rok,
+    max_value=max_rok,
+    value=(min_rok, max_rok),
+)
 
 df_filtered = df_p[df_p["id-rok"].between(rok_od, rok_do)]
 
@@ -65,9 +70,9 @@ if len(pozycje) < 2:
 
 col1, col2 = st.columns(2)
 with col1:
-    poz1 = st.selectbox("Pozycja 1", pozycje, index=0)
+    poz1 = st.selectbox("Pozycja 1", pozycje, index=idx(pozycje, "Usługi lekarskie"))
 with col2:
-    poz2 = st.selectbox("Pozycja 2", pozycje, index=min(1, len(pozycje) - 1))
+    poz2 = st.selectbox("Pozycja 2", pozycje, index=idx(pozycje, "Zdrowie"))
 
 # ---------------------------------------------------------------------------
 # Wykres
