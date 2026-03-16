@@ -1,3 +1,4 @@
+import base64
 import io
 
 import pandas as pd
@@ -41,7 +42,19 @@ def get_period_month_num(opis: str) -> int:
 
 df = load_data()
 
-st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
+with open("inflacja_dashboard.svg", "rb") as _f:
+    _svg_b64 = base64.b64encode(_f.read()).decode()
+
+img_col, title_col = st.columns([1, 4])
+with img_col:
+    st.markdown(
+        f'<img src="data:image/svg+xml;base64,{_svg_b64}" style="width:100%;max-height:130px;object-fit:contain;">',
+        unsafe_allow_html=True,
+    )
+with title_col:
+    st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
+
+st.markdown("<div style='margin-bottom: 1.5rem'></div>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------
 # Filtry — zwijany kontener
@@ -80,6 +93,7 @@ with st.expander("Filtry", expanded=False):
             min_value=min_rok,
             max_value=max_rok,
             value=(min_rok, max_rok),
+            key=f"slider_lat_{min_rok}_{max_rok}",
         )
 
     scol, _ = st.columns([1, 1])
