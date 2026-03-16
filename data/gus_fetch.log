@@ -1004,3 +1004,246 @@
 22:22:53 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2021&id-okres=274&ile-na-stronie=5000&numer-strony=0&lang=pl
 22:22:53 [INFO] variable/variable-data-section → 429 (0.01s)
 22:22:53 [WARNING] Rate limit 429 (czekam 910s) — czekam 910s, wznawianie o 22:38:03
+22:38:04 [INFO] variable/variable-data-section → 200 (0.43s)
+22:38:04 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2021&id-okres=275&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:04 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:04 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2021&id-okres=276&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:04 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:04 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2021&id-okres=277&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:04 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:04 [INFO] Pobieranie: section=737, rok=2022, periods=8
+22:38:04 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=270&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:05 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:05 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=271&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:05 [INFO] variable/variable-data-section → 200 (0.27s)
+22:38:05 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=272&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:05 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:05 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=273&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:05 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:05 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=274&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:06 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:06 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=275&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:06 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:06 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=276&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:06 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:06 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2022&id-okres=277&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:06 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:06 [INFO] Pobieranie: section=737, rok=2023, periods=8
+22:38:06 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=270&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:06 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:06 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=271&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:07 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:07 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=272&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:07 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:07 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=273&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:07 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:07 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=274&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:07 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:07 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=275&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:08 [INFO] variable/variable-data-section → 200 (0.19s)
+22:38:08 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=276&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:08 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:08 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2023&id-okres=277&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:08 [INFO] variable/variable-data-section → 200 (0.19s)
+22:38:08 [INFO] Pobieranie: section=737, rok=2024, periods=8
+22:38:08 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=270&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:08 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:08 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=271&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:08 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:08 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=272&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:09 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:09 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=273&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:09 [INFO] variable/variable-data-section → 200 (0.21s)
+22:38:09 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=274&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:09 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:09 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=275&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:09 [INFO] variable/variable-data-section → 200 (0.19s)
+22:38:09 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=276&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:09 [INFO] variable/variable-data-section → 200 (0.19s)
+22:38:09 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2024&id-okres=277&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:10 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:10 [INFO] Pobieranie: section=737, rok=2025, periods=8
+22:38:10 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=270&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:10 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:10 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=271&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:10 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:10 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=272&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:10 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:10 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=273&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:10 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:10 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=274&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:11 [INFO] variable/variable-data-section → 200 (0.20s)
+22:38:11 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=275&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:11 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:11 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=276&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:11 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:11 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=737&id-rok=2025&id-okres=277&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:11 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:11 [INFO] Pobieranie: section=739, rok=2015, periods=13
+22:38:11 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:11 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:11 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=248&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:12 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:12 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=249&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:12 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:12 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=250&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:12 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:12 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=251&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:12 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:12 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=252&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:13 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:13 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=253&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:13 [INFO] variable/variable-data-section → 200 (0.21s)
+22:38:13 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=254&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:13 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:13 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=255&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:13 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:13 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=256&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:13 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:13 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=257&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:14 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:14 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=258&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:14 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:14 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2015&id-okres=282&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:14 [INFO] variable/variable-data-section → 200 (0.17s)
+22:38:14 [INFO] Pobieranie: section=739, rok=2016, periods=13
+22:38:14 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:14 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:14 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=248&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:15 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:15 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=249&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:15 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:15 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=250&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:15 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:15 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=251&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:15 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:15 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=252&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:16 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:16 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=253&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:16 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:16 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=254&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:16 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:16 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=255&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:16 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:16 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=256&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:16 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:16 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=257&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:17 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:17 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=258&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:17 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:17 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2016&id-okres=282&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:17 [INFO] variable/variable-data-section → 200 (0.19s)
+22:38:17 [INFO] Pobieranie: section=739, rok=2017, periods=13
+22:38:17 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:17 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:17 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=248&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:18 [INFO] variable/variable-data-section → 200 (0.25s)
+22:38:18 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=249&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:18 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:18 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=250&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:18 [INFO] variable/variable-data-section → 200 (0.26s)
+22:38:18 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=251&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:18 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:18 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=252&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:19 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:19 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=253&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:19 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:19 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=254&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:19 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:19 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=255&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:19 [INFO] variable/variable-data-section → 200 (0.27s)
+22:38:19 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=256&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:20 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:20 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=257&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:20 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:20 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=258&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:20 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:20 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2017&id-okres=282&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:20 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:20 [INFO] Pobieranie: section=739, rok=2018, periods=13
+22:38:20 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:20 [INFO] variable/variable-data-section → 200 (0.25s)
+22:38:20 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=248&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:21 [INFO] variable/variable-data-section → 200 (0.25s)
+22:38:21 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=249&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:21 [INFO] variable/variable-data-section → 200 (0.26s)
+22:38:21 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=250&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:21 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:21 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=251&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:21 [INFO] variable/variable-data-section → 200 (0.25s)
+22:38:21 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=252&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:22 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:22 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=253&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:22 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:22 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=254&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:22 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:22 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=255&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:22 [INFO] variable/variable-data-section → 200 (0.25s)
+22:38:22 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=256&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:23 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:23 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=257&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:23 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:23 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=258&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:23 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:23 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2018&id-okres=282&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:23 [INFO] variable/variable-data-section → 200 (0.19s)
+22:38:23 [INFO] Pobieranie: section=739, rok=2019, periods=13
+22:38:23 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:23 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:23 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=248&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:24 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:24 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=249&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:24 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:24 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=250&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:24 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:24 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=251&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:24 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:24 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=252&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:25 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:25 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=253&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:25 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:25 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=254&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:25 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:25 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=255&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:25 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:25 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=256&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:26 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:26 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=257&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:26 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:26 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=258&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:26 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:26 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2019&id-okres=282&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:26 [INFO] variable/variable-data-section → 200 (0.18s)
+22:38:26 [INFO] Pobieranie: section=739, rok=2020, periods=13
+22:38:26 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:26 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:26 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=248&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:27 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:27 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=249&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:27 [INFO] variable/variable-data-section → 200 (0.31s)
+22:38:27 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=250&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:27 [INFO] variable/variable-data-section → 200 (0.30s)
+22:38:27 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=251&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:28 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:28 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=252&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:28 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:28 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=253&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:28 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:28 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=254&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:28 [INFO] variable/variable-data-section → 200 (0.23s)
+22:38:28 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=255&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:28 [INFO] variable/variable-data-section → 200 (0.24s)
+22:38:28 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=256&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:29 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:29 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=257&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:29 [INFO] variable/variable-data-section → 200 (0.22s)
+22:38:29 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=258&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:38:29 [INFO] variable/variable-data-section → 429 (0.01s)
+22:38:29 [WARNING] Rate limit 429 (czekam 910s) — czekam 910s, wznawianie o 22:53:39
+22:53:40 [INFO] variable/variable-data-section → 200 (0.51s)
+22:53:40 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2020&id-okres=282&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:53:40 [INFO] variable/variable-data-section → 200 (0.19s)
+22:53:40 [INFO] Pobieranie: section=739, rok=2021, periods=13
+22:53:40 [DEBUG] Request URL: https://api-dbw.stat.gov.pl/api/variable/variable-data-section?id-zmienna=305&id-przekroj=739&id-rok=2021&id-okres=247&ile-na-stronie=5000&numer-strony=0&lang=pl
+22:53:40 [INFO] variable/variable-data-section → 429 (0.01s)
+22:53:40 [WARNING] Rate limit 429 (czekam 910s) — czekam 910s, wznawianie o 23:08:50
