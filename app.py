@@ -28,12 +28,18 @@ def idx(options: list, keyword: str) -> int:
     return 0
 
 
-def get_month_num(opis: str) -> int:
+def get_period_month_num(opis: str) -> int:
+    """
+    Zwraca miesiąc okresu:
+    - dla miesięcznych: sam miesiąc
+    - dla narastających: miesiąc końcowy (np. 'styczeń–czerwiec' → 6)
+    """
     opis_lower = opis.lower()
+    result = 0
     for name, num in MONTH_ORDER.items():
         if name in opis_lower:
-            return num
-    return 0
+            result = max(result, num)
+    return result
 
 
 df = load_data()
@@ -52,7 +58,7 @@ with pcol:
 df_p = df[df["nazwa-przekroj"] == przekroj]
 
 # ---------------------------------------------------------------------------
-# Wiersz 2: Tryb (20%) + Okres/Miesiące (30%)
+# Wiersz 2: Tryb (20%) + Miesiące (30%)
 # ---------------------------------------------------------------------------
 
 tcol, mcol, _ = st.columns([2, 3, 5])
@@ -61,22 +67,16 @@ with tcol:
     tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"])
 
 if tryb == "Narastający":
-    df_p = df_p[df_p["opis-okres"].str.contains("narastające", na=False, case=False)]
-    okresy = sorted(df_p["opis-okres"].dropna().unique())
-    with mcol:
-        okres = st.selectbox("Okres", okresy, index=idx(okresy, "styczeń - grudzień"))
-    df_p = df_p[df_p["opis-okres"] == okres]
-    x_col = "id-rok"
-    x_label = "Rok"
+    df_p = df_p[df_p["opis-okres"].str.contains("miesiąc - dane narastające", na=False, case=False)]
 else:
     df_p = df_p[df_p["opis-okres"].str.contains("dane miesięczne", na=False, case=False)]
-    with mcol:
-        selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
-    if selected_months:
-        nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
-        df_p = df_p[df_p["opis-okres"].apply(get_month_num).isin(nums)]
-    x_col = "date"
-    x_label = "Data"
+
+with mcol:
+    selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
+
+if selected_months:
+    nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
+    df_p = df_p[df_p["opis-okres"].apply(get_period_month_num).isin(nums)]
 
 # ---------------------------------------------------------------------------
 # Wiersz 3: Sposób prezentacji (50%)
@@ -105,14 +105,12 @@ rok_od, rok_do = st.slider(
 )
 
 df_filtered = df_p[df_p["id-rok"].between(rok_od, rok_do)].copy()
-
-if tryb == "Miesięczny":
-    df_filtered["month_num"] = df_filtered["opis-okres"].apply(get_month_num)
-    df_filtered["date"] = pd.to_datetime(
-        df_filtered["id-rok"].astype(str) + "-"
-        + df_filtered["month_num"].astype(str).str.zfill(2),
-        format="%Y-%m",
-    )
+df_filtered["month_num"] = df_filtered["opis-okres"].apply(get_period_month_num)
+df_filtered["date"] = pd.to_datetime(
+    df_filtered["id-rok"].astype(str) + "-"
+    + df_filtered["month_num"].astype(str).str.zfill(2),
+    format="%Y-%m",
+)
 
 # ---------------------------------------------------------------------------
 # Wybór pozycji
@@ -140,7 +138,7 @@ if df_chart.empty:
     st.warning("Brak danych dla wybranych pozycji.")
     st.stop()
 
-group_cols = ["opis-pozycja-2", x_col]
+group_cols = ["opis-pozycja-2", "date"]
 if df_chart.groupby(group_cols).size().max() > 1:
     df_chart = df_chart.groupby(group_cols, as_index=False)["wartosc"].mean()
 
@@ -148,12 +146,12 @@ df_chart = df_chart.sort_values(group_cols)
 
 fig = px.line(
     df_chart,
-    x=x_col,
+    x="date",
     y="wartosc",
     color="opis-pozycja-2",
     markers=True,
     labels={
-        x_col: x_label,
+        "date": "Data",
         "wartosc": "Wartość",
         "opis-pozycja-2": "Pozycja",
     },
