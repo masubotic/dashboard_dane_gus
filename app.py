@@ -21,7 +21,6 @@ def load_data() -> pd.DataFrame:
 
 
 def idx(options: list, keyword: str) -> int:
-    """Zwraca indeks pierwszej opcji zawierającej keyword (case-insensitive)."""
     kw = keyword.lower()
     for i, o in enumerate(options):
         if kw in str(o).lower():
@@ -42,47 +41,55 @@ df = load_data()
 st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
 
 # ---------------------------------------------------------------------------
-# Filtry — wiersz 1: przekrój | tryb | sposób prezentacji
+# Wiersz 1: Przekrój (50%)
 # ---------------------------------------------------------------------------
 
-fcol1, fcol2, fcol3 = st.columns(3)
-
+pcol, _ = st.columns([1, 1])
 przekroje = sorted(df["nazwa-przekroj"].dropna().unique())
-with fcol1:
+with pcol:
     przekroj = st.selectbox("Przekrój", przekroje, index=idx(przekroje, "COICOP 1999"))
 
 df_p = df[df["nazwa-przekroj"] == przekroj]
 
-prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
-with fcol3:
-    prezentacja = st.selectbox(
-        "Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny")
-    )
-
-df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
-
-with fcol2:
-    tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"], horizontal=True)
-
 # ---------------------------------------------------------------------------
-# Filtry — wiersz 2: zależne od trybu
+# Wiersz 2: Tryb (20%) + Okres/Miesiące (30%)
 # ---------------------------------------------------------------------------
+
+tcol, mcol, _ = st.columns([2, 3, 5])
+
+with tcol:
+    tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"])
 
 if tryb == "Narastający":
     df_p = df_p[df_p["opis-okres"].str.contains("narastające", na=False, case=False)]
     okresy = sorted(df_p["opis-okres"].dropna().unique())
-    okres = st.selectbox("Okres", okresy, index=idx(okresy, "styczeń - grudzień"))
+    with mcol:
+        okres = st.selectbox("Okres", okresy, index=idx(okresy, "styczeń - grudzień"))
     df_p = df_p[df_p["opis-okres"] == okres]
     x_col = "id-rok"
     x_label = "Rok"
 else:
     df_p = df_p[df_p["opis-okres"].str.contains("dane miesięczne", na=False, case=False)]
-    selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
+    with mcol:
+        selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
     if selected_months:
         nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
         df_p = df_p[df_p["opis-okres"].apply(get_month_num).isin(nums)]
     x_col = "date"
     x_label = "Data"
+
+# ---------------------------------------------------------------------------
+# Wiersz 3: Sposób prezentacji (50%)
+# ---------------------------------------------------------------------------
+
+scol, _ = st.columns([1, 1])
+prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
+with scol:
+    prezentacja = st.selectbox(
+        "Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny")
+    )
+
+df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
 
 # ---------------------------------------------------------------------------
 # Suwak lat
