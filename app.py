@@ -116,21 +116,32 @@ df_filtered["date"] = pd.to_datetime(
 # ---------------------------------------------------------------------------
 
 pozycje = sorted(df_filtered["opis-pozycja-2"].dropna().unique())
-pozycje_opt = [None] + list(pozycje)
+BRAK = "- brak -"
+pozycje_opt = [BRAK] + list(pozycje)
 
-def fmt_poz(x):
-    return "— brak —" if x is None else x
-
-# Znajdź domyślny indeks dla opcjonalnych pozycji (offset +1 bo None jest pierwsze)
 def opt_idx(keyword: str) -> int:
     for i, p in enumerate(pozycje):
         if keyword.lower() in p.lower():
-            return i + 1  # +1 dla None na początku
-    return 0  # None
+            return i + 1  # +1 bo BRAK jest pierwsze
+    return 0
 
 if len(pozycje) < 1:
     st.warning("Za mało danych dla wybranych filtrów.")
     st.stop()
+
+def clearable_selectbox(label: str, key: str, default_keyword: str | None = None):
+    """Selectbox z przyciskiem ✕ do czyszczenia. Zwraca wybraną wartość lub None."""
+    sel_col, btn_col = st.columns([11, 1])
+    with sel_col:
+        val = st.selectbox(
+            label, pozycje_opt, key=key,
+            index=opt_idx(default_keyword) if default_keyword else 0,
+        )
+    with btn_col:
+        st.write("‎")  # wyrównanie przycisku z polem
+        st.button("✕", key=f"clear_{key}", help="Wyczyść",
+                  on_click=lambda k=key: st.session_state.update({k: BRAK}))
+    return val
 
 r1c1, r1c2 = st.columns(2)
 r2c1, r2c2 = st.columns(2)
@@ -138,13 +149,13 @@ r2c1, r2c2 = st.columns(2)
 with r1c1:
     poz1 = st.selectbox("Pozycja 1", pozycje, index=idx(pozycje, "Usługi lekarskie"))
 with r1c2:
-    poz2 = st.selectbox("Pozycja 2", pozycje_opt, index=opt_idx("Zdrowie"), format_func=fmt_poz)
+    poz2 = clearable_selectbox("Pozycja 2", "poz2", "Zdrowie")
 with r2c1:
-    poz3 = st.selectbox("Pozycja 3", pozycje_opt, index=0, format_func=fmt_poz)
+    poz3 = clearable_selectbox("Pozycja 3", "poz3")
 with r2c2:
-    poz4 = st.selectbox("Pozycja 4", pozycje_opt, index=0, format_func=fmt_poz)
+    poz4 = clearable_selectbox("Pozycja 4", "poz4")
 
-selected_pozycje = [p for p in [poz1, poz2, poz3, poz4] if p is not None]
+selected_pozycje = [p for p in [poz1, poz2, poz3, poz4] if p != BRAK]
 
 # ---------------------------------------------------------------------------
 # Wykres
