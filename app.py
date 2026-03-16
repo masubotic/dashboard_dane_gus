@@ -148,7 +148,9 @@ r1c1, r1c2 = st.columns(2)
 r2c1, r2c2 = st.columns(2)
 
 with r1c1:
-    poz1 = st.selectbox("Pozycja 1", pozycje, index=idx(pozycje, "Usługi lekarskie"))
+    p1_col, _ = st.columns([11, 1])
+    with p1_col:
+        poz1 = st.selectbox("Pozycja 1", pozycje, index=idx(pozycje, "Usługi lekarskie"))
 with r1c2:
     poz2 = clearable_selectbox("Pozycja 2", "poz2", "Zdrowie")
 with r2c1:
@@ -174,18 +176,47 @@ if df_chart.groupby(group_cols).size().max() > 1:
 
 df_chart = df_chart.sort_values(group_cols)
 
+show_labels = st.toggle("Etykiety na wykresie", value=False)
+
+if show_labels:
+    n_points = df_chart.groupby("opis-pozycja-2").size().max()
+    step = max(1, n_points // 12)
+    df_chart["_rank"] = df_chart.groupby("opis-pozycja-2").cumcount()
+    df_chart["_text"] = df_chart.apply(
+        lambda r: str(round(r["wartosc"], 1)) if r["_rank"] % step == 0 else "", axis=1
+    )
+    text_col = "_text"
+else:
+    text_col = None
+
+df_chart["_date_label"] = df_chart["date"].apply(
+    lambda d: f"{MONTH_NAMES[d.month - 1]} {d.year}"
+)
+
 fig = px.line(
     df_chart,
     x="date",
     y="wartosc",
     color="opis-pozycja-2",
     markers=True,
+    text=text_col,
+    custom_data=["_date_label", "wartosc", "opis-pozycja-2"],
     labels={
         "date": "Data",
         "wartosc": "Wartość",
         "opis-pozycja-2": "Pozycja",
     },
     title="  |  ".join(selected_pozycje),
+)
+if show_labels:
+    fig.update_traces(textposition="top center")
+fig.update_traces(
+    hovertemplate=(
+        "<b>%{customdata[2]}</b><br>"
+        "%{customdata[0]}<br>"
+        "Wartość: <b>%{customdata[1]:.1f}</b>"
+        "<extra></extra>"
+    )
 )
 fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=-0.3))
 
