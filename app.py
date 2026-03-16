@@ -138,8 +138,9 @@ def clearable_selectbox(label: str, key: str, default_keyword: str | None = None
             index=opt_idx(default_keyword) if default_keyword else 0,
         )
     with btn_col:
-        st.write("‎")  # wyrównanie przycisku z polem
+        st.markdown('<div style="margin-top: 1.75rem"></div>', unsafe_allow_html=True)
         st.button("✕", key=f"clear_{key}", help="Wyczyść",
+                  disabled=(val == BRAK),
                   on_click=lambda k=key: st.session_state.update({k: BRAK}))
     return val
 
@@ -197,6 +198,15 @@ st.plotly_chart(fig)
 with st.expander("Dane źródłowe"):
     df_export = df_chart[["opis-pozycja-2", "date", "wartosc"]].copy()
     df_export["date"] = df_export["date"].dt.date
+    df_export["przekroj"] = przekroj
+    df_export["sposob_prezentacji"] = prezentacja
+    df_export["tryb_okresu"] = tryb
+    df_export = df_export.rename(columns={
+        "opis-pozycja-2": "pozycja",
+        "date": "data",
+        "wartosc": "wartosc",
+    })
+    df_export = df_export[["przekroj", "tryb_okresu", "sposob_prezentacji", "pozycja", "data", "wartosc"]]
 
     buf = io.BytesIO()
     df_export.to_excel(buf, index=False, engine="openpyxl")
@@ -207,4 +217,4 @@ with st.expander("Dane źródłowe"):
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
 
-    st.dataframe(df_export.sort_values(["opis-pozycja-2", "date"]), hide_index=True)
+    st.dataframe(df_export.sort_values(["pozycja", "data"]), hide_index=True)
