@@ -20,7 +20,10 @@ MONTH_NAMES = [
 
 @st.cache_data
 def load_data() -> pd.DataFrame:
-    return pd.read_parquet("data/gus_data.parquet")
+    df = pd.read_parquet("data/gus_data.parquet")
+    for col in df.select_dtypes("object").columns:
+        df[col] = df[col].astype("category")
+    return df
 
 
 def idx(options: list, keyword: str) -> int:
