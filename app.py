@@ -1,3 +1,5 @@
+import io
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -29,11 +31,6 @@ def idx(options: list, keyword: str) -> int:
 
 
 def get_period_month_num(opis: str) -> int:
-    """
-    Zwraca miesiąc okresu:
-    - dla miesięcznych: sam miesiąc
-    - dla narastających: miesiąc końcowy (np. 'styczeń–czerwiec' → 6)
-    """
     opis_lower = opis.lower()
     result = 0
     for name, num in MONTH_ORDER.items():
@@ -47,10 +44,10 @@ df = load_data()
 st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
 
 # ---------------------------------------------------------------------------
-# Wiersz 1: Przekrój (50%)
+# Wiersz 1: Przekrój (50%) | Zakres lat (50%)
 # ---------------------------------------------------------------------------
 
-pcol, _ = st.columns([1, 1])
+pcol, rcol = st.columns([1, 1])
 przekroje = sorted(df["nazwa-przekroj"].dropna().unique())
 with pcol:
     przekroj = st.selectbox("Przekrój", przekroje, index=idx(przekroje, "COICOP 1999"))
@@ -92,17 +89,18 @@ with scol:
 df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
 
 # ---------------------------------------------------------------------------
-# Suwak lat
+# Suwak lat — wypełnia rcol z wiersza 1
 # ---------------------------------------------------------------------------
 
 min_rok = int(df_p["id-rok"].min())
 max_rok = int(df_p["id-rok"].max())
-rok_od, rok_do = st.slider(
-    "Zakres lat",
-    min_value=min_rok,
-    max_value=max_rok,
-    value=(min_rok, max_rok),
-)
+with rcol:
+    rok_od, rok_do = st.slider(
+        "Zakres lat",
+        min_value=min_rok,
+        max_value=max_rok,
+        value=(min_rok, max_rok),
+    )
 
 df_filtered = df_p[df_p["id-rok"].between(rok_od, rok_do)].copy()
 df_filtered["month_num"] = df_filtered["opis-okres"].apply(get_period_month_num)
@@ -113,26 +111,46 @@ df_filtered["date"] = pd.to_datetime(
 )
 
 # ---------------------------------------------------------------------------
-# Wybór pozycji
+# Wybór pozycji — 2 rzędy po 2 kolumny
+# Pozycja 1: wymagana | Pozycje 2-4: opcjonalne (clearable)
 # ---------------------------------------------------------------------------
 
 pozycje = sorted(df_filtered["opis-pozycja-2"].dropna().unique())
+pozycje_opt = [None] + list(pozycje)
 
-if len(pozycje) < 2:
+def fmt_poz(x):
+    return "— brak —" if x is None else x
+
+# Znajdź domyślny indeks dla opcjonalnych pozycji (offset +1 bo None jest pierwsze)
+def opt_idx(keyword: str) -> int:
+    for i, p in enumerate(pozycje):
+        if keyword.lower() in p.lower():
+            return i + 1  # +1 dla None na początku
+    return 0  # None
+
+if len(pozycje) < 1:
     st.warning("Za mało danych dla wybranych filtrów.")
     st.stop()
 
-col1, col2 = st.columns(2)
-with col1:
+r1c1, r1c2 = st.columns(2)
+r2c1, r2c2 = st.columns(2)
+
+with r1c1:
     poz1 = st.selectbox("Pozycja 1", pozycje, index=idx(pozycje, "Usługi lekarskie"))
-with col2:
-    poz2 = st.selectbox("Pozycja 2", pozycje, index=idx(pozycje, "Zdrowie"))
+with r1c2:
+    poz2 = st.selectbox("Pozycja 2", pozycje_opt, index=opt_idx("Zdrowie"), format_func=fmt_poz)
+with r2c1:
+    poz3 = st.selectbox("Pozycja 3", pozycje_opt, index=0, format_func=fmt_poz)
+with r2c2:
+    poz4 = st.selectbox("Pozycja 4", pozycje_opt, index=0, format_func=fmt_poz)
+
+selected_pozycje = [p for p in [poz1, poz2, poz3, poz4] if p is not None]
 
 # ---------------------------------------------------------------------------
 # Wykres
 # ---------------------------------------------------------------------------
 
-df_chart = df_filtered[df_filtered["opis-pozycja-2"].isin([poz1, poz2])].copy()
+df_chart = df_filtered[df_filtered["opis-pozycja-2"].isin(selected_pozycje)].copy()
 
 if df_chart.empty:
     st.warning("Brak danych dla wybranych pozycji.")
@@ -155,18 +173,27 @@ fig = px.line(
         "wartosc": "Wartość",
         "opis-pozycja-2": "Pozycja",
     },
-    title=f"{poz1}  vs  {poz2}",
+    title="  |  ".join(selected_pozycje),
 )
 fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=-0.3))
 
 st.plotly_chart(fig)
 
 # ---------------------------------------------------------------------------
-# Tabela danych
+# Dane źródłowe + eksport Excel
 # ---------------------------------------------------------------------------
 
 with st.expander("Dane źródłowe"):
-    st.dataframe(
-        df_chart.sort_values(group_cols),
-        hide_index=True,
+    df_export = df_chart[["opis-pozycja-2", "date", "wartosc"]].copy()
+    df_export["date"] = df_export["date"].dt.date
+
+    buf = io.BytesIO()
+    df_export.to_excel(buf, index=False, engine="openpyxl")
+    st.download_button(
+        label="Pobierz Excel",
+        data=buf.getvalue(),
+        file_name="dane_gus.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
+
+    st.dataframe(df_export.sort_values(["opis-pozycja-2", "date"]), hide_index=True)
