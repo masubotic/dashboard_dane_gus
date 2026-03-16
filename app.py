@@ -44,63 +44,52 @@ df = load_data()
 st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
 
 # ---------------------------------------------------------------------------
-# Wiersz 1: Przekrój (50%) | Zakres lat (50%)
+# Filtry — zwijany kontener
 # ---------------------------------------------------------------------------
 
-pcol, rcol = st.columns([1, 1])
-przekroje = sorted(df["nazwa-przekroj"].dropna().unique())
-with pcol:
-    przekroj = st.selectbox("Przekrój", przekroje, index=idx(przekroje, "COICOP 1999"))
+with st.expander("Filtry", expanded=False):
+    pcol, rcol = st.columns([1, 1])
+    przekroje = sorted(df["nazwa-przekroj"].dropna().unique())
+    with pcol:
+        przekroj = st.selectbox("Przekrój", przekroje, index=idx(przekroje, "COICOP 1999"))
 
-df_p = df[df["nazwa-przekroj"] == przekroj]
+    df_p = df[df["nazwa-przekroj"] == przekroj]
 
-# ---------------------------------------------------------------------------
-# Wiersz 2: Tryb (20%) + Miesiące (30%)
-# ---------------------------------------------------------------------------
+    tcol, mcol, _ = st.columns([2, 3, 5])
 
-tcol, mcol, _ = st.columns([2, 3, 5])
+    with tcol:
+        tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"])
 
-with tcol:
-    tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"])
+    if tryb == "Narastający":
+        df_p = df_p[df_p["opis-okres"].str.contains("miesiąc - dane narastające", na=False, case=False)]
+    else:
+        df_p = df_p[df_p["opis-okres"].str.contains("dane miesięczne", na=False, case=False)]
 
-if tryb == "Narastający":
-    df_p = df_p[df_p["opis-okres"].str.contains("miesiąc - dane narastające", na=False, case=False)]
-else:
-    df_p = df_p[df_p["opis-okres"].str.contains("dane miesięczne", na=False, case=False)]
+    with mcol:
+        selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
 
-with mcol:
-    selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
+    if selected_months:
+        nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
+        df_p = df_p[df_p["opis-okres"].apply(get_period_month_num).isin(nums)]
 
-if selected_months:
-    nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
-    df_p = df_p[df_p["opis-okres"].apply(get_period_month_num).isin(nums)]
+    min_rok = int(df_p["id-rok"].min())
+    max_rok = int(df_p["id-rok"].max())
+    with rcol:
+        rok_od, rok_do = st.slider(
+            "Zakres lat",
+            min_value=min_rok,
+            max_value=max_rok,
+            value=(min_rok, max_rok),
+        )
 
-# ---------------------------------------------------------------------------
-# Wiersz 3: Sposób prezentacji (50%)
-# ---------------------------------------------------------------------------
+    scol, _ = st.columns([1, 1])
+    prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
+    with scol:
+        prezentacja = st.selectbox(
+            "Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny")
+        )
 
-scol, _ = st.columns([1, 1])
-prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
-with scol:
-    prezentacja = st.selectbox(
-        "Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny")
-    )
-
-df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
-
-# ---------------------------------------------------------------------------
-# Suwak lat — wypełnia rcol z wiersza 1
-# ---------------------------------------------------------------------------
-
-min_rok = int(df_p["id-rok"].min())
-max_rok = int(df_p["id-rok"].max())
-with rcol:
-    rok_od, rok_do = st.slider(
-        "Zakres lat",
-        min_value=min_rok,
-        max_value=max_rok,
-        value=(min_rok, max_rok),
-    )
+    df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
 
 df_filtered = df_p[df_p["id-rok"].between(rok_od, rok_do)].copy()
 df_filtered["month_num"] = df_filtered["opis-okres"].apply(get_period_month_num)
@@ -176,7 +165,7 @@ if df_chart.groupby(group_cols).size().max() > 1:
 
 df_chart = df_chart.sort_values(group_cols)
 
-show_labels = st.toggle("Etykiety na wykresie", value=False)
+show_labels = st.toggle("Etykiety na wykresie", value=True)
 
 if show_labels:
     n_points = df_chart.groupby("opis-pozycja-2").size().max()
@@ -206,7 +195,6 @@ fig = px.line(
         "wartosc": "Wartość",
         "opis-pozycja-2": "Pozycja",
     },
-    title="  |  ".join(selected_pozycje),
 )
 if show_labels:
     fig.update_traces(textposition="top center")
@@ -218,7 +206,17 @@ fig.update_traces(
         "<extra></extra>"
     )
 )
-fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=-0.3))
+fig.update_layout(
+    title=dict(
+        text="  |  ".join(selected_pozycje),
+        font=dict(size=22),
+        subtitle=dict(
+            text=f"{przekroj}  |  {tryb}  |  {prezentacja}",
+            font=dict(size=13),
+        ),
+    ),
+    legend=dict(orientation="h", yanchor="bottom", y=-0.3),
+)
 
 st.plotly_chart(fig)
 
