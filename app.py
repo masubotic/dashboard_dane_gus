@@ -91,13 +91,17 @@ with st.expander("Filtry", expanded=False):
     min_rok = int(df_p["id-rok"].min())
     max_rok = int(df_p["id-rok"].max())
     with rcol:
-        rok_od, rok_do = st.slider(
-            "Zakres lat",
-            min_value=min_rok,
-            max_value=max_rok,
-            value=(min_rok, max_rok),
-            key=f"slider_lat_{min_rok}_{max_rok}",
-        )
+        if min_rok < max_rok:
+            rok_od, rok_do = st.slider(
+                "Zakres lat",
+                min_value=min_rok,
+                max_value=max_rok,
+                value=(min_rok, max_rok),
+                key=f"slider_lat_{min_rok}_{max_rok}",
+            )
+        else:
+            st.text_input("Zakres lat", value=str(min_rok), disabled=True)
+            rok_od, rok_do = min_rok, max_rok
 
     scol, _ = st.columns([1, 1])
     prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
