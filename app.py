@@ -64,7 +64,8 @@ st.markdown("<div style='margin-bottom: 1.5rem'></div>", unsafe_allow_html=True)
 # ---------------------------------------------------------------------------
 
 with st.expander("Filtry", expanded=False):
-    tcol, mcol = st.columns([1, 2])
+    tcol, mcol, pcol, rcol = st.columns([1, 3, 2, 2])
+
     with tcol:
         tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"])
     with mcol:
@@ -79,7 +80,6 @@ with st.expander("Filtry", expanded=False):
         nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
         df_t = df_t[df_t["opis-okres"].apply(get_period_month_num).isin(nums)]
 
-    pcol, rcol = st.columns([1, 1])
     prezentacje = sorted(df_t["sposob-prezentacji"].dropna().unique())
     with pcol:
         prezentacja = st.selectbox(
@@ -126,13 +126,15 @@ if "n_slots" not in st.session_state:
 def render_slot_required(col, slot_key: str, n: int, default_przekroj_kw: str, default_poz_kw: str):
     with col:
         st.markdown(f"**Przekrój i wskaźnik ({n})**")
-        pr = st.selectbox(
-            f"Przekrój {n}",
-            available_przekroje,
-            index=idx(available_przekroje, default_przekroj_kw),
-            key=f"{slot_key}_przekroj",
-            label_visibility="collapsed",
-        )
+        pr_col, _ = st.columns([11, 1])
+        with pr_col:
+            pr = st.selectbox(
+                f"Przekrój {n}",
+                available_przekroje,
+                index=idx(available_przekroje, default_przekroj_kw),
+                key=f"{slot_key}_przekroj",
+                label_visibility="collapsed",
+            )
         pozycje = get_pozycje(pr)
         if not pozycje:
             st.warning("Brak pozycji dla tego przekroju.")
