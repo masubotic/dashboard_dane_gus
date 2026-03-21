@@ -191,38 +191,39 @@ def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
         return pr, poz
 
 
-r1c1, r1c2 = st.columns(2)
-pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "COICOP 2018", "062")
-pr2, poz2 = render_slot_optional(r1c2, "slot2", 2, default_przekroj_kw="COICOP 1999", default_poz_kw="06.2.1")
+with st.expander("Przekroje i wskaźniki", expanded=True):
+    r1c1, r1c2 = st.columns(2)
+    pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "COICOP 2018", "062")
+    pr2, poz2 = render_slot_optional(r1c2, "slot2", 2, default_przekroj_kw="COICOP 1999", default_poz_kw="06.2.1")
 
-pr3, poz3 = None, None
-pr4, poz4 = None, None
+    pr3, poz3 = None, None
+    pr4, poz4 = None, None
 
-if st.session_state.n_slots >= 3:
-    r2c1, r2c2 = st.columns(2)
+    if st.session_state.n_slots >= 3:
+        r2c1, r2c2 = st.columns(2)
 
-    def _remove_slot3():
-        if st.session_state.n_slots == 4:
-            # przenieś slot4 → slot3, schowaj slot4
-            for suffix in ["_przekroj", "_poz"]:
-                val = st.session_state.pop(f"slot4{suffix}", None)
-                if val is not None:
-                    st.session_state[f"slot3{suffix}"] = val
-            st.session_state.n_slots = 3
-        else:
-            st.session_state.pop("slot3_przekroj", None)
-            st.session_state.pop("slot3_poz", None)
-            st.session_state.n_slots = 2
+        def _remove_slot3():
+            if st.session_state.n_slots == 4:
+                # przenieś slot4 → slot3, schowaj slot4
+                for suffix in ["_przekroj", "_poz"]:
+                    val = st.session_state.pop(f"slot4{suffix}", None)
+                    if val is not None:
+                        st.session_state[f"slot3{suffix}"] = val
+                st.session_state.n_slots = 3
+            else:
+                st.session_state.pop("slot3_przekroj", None)
+                st.session_state.pop("slot3_poz", None)
+                st.session_state.n_slots = 2
 
-    pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=True, on_remove=_remove_slot3,
-                                     default_przekroj_kw="COICOP 2018", default_poz_kw="064")
-    if st.session_state.n_slots >= 4:
-        pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True,
-                                         default_przekroj_kw="COICOP 2018", default_poz_kw="063")
+        pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=True, on_remove=_remove_slot3,
+                                         default_przekroj_kw="COICOP 2018", default_poz_kw="064")
+        if st.session_state.n_slots >= 4:
+            pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True,
+                                             default_przekroj_kw="COICOP 2018", default_poz_kw="063")
 
-if st.session_state.n_slots < 4:
-    st.button("＋ Dodaj wskaźnik", key="add_slot",
-              on_click=lambda: st.session_state.update({"n_slots": st.session_state.n_slots + 1}))
+    if st.session_state.n_slots < 4:
+        st.button("＋ Dodaj wskaźnik", key="add_slot",
+                  on_click=lambda: st.session_state.update({"n_slots": st.session_state.n_slots + 1}))
 
 slots = [(pr, poz) for pr, poz in [(pr1, poz1), (pr2, poz2), (pr3, poz3), (pr4, poz4)] if pr and poz]
 
