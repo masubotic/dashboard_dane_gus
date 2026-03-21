@@ -165,8 +165,9 @@ def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
             )
         with btn_col:
             if removable:
-                def _remove(k=poz_key):
-                    st.session_state[k] = BRAK
+                def _remove(k=poz_key, pk=f"{slot_key}_przekroj"):
+                    st.session_state.pop(k, None)
+                    st.session_state.pop(pk, None)
                     st.session_state.n_slots -= 1
                 st.button("✕", key=f"remove_{slot_key}", help="Usuń serię", on_click=_remove)
         pozycje_opt = [BRAK] + get_pozycje(pr)
@@ -185,8 +186,8 @@ def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
 
 
 r1c1, r1c2 = st.columns(2)
-pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "COICOP 1999", "Usługi lekarskie")
-pr2, poz2 = render_slot_optional(r1c2, "slot2", 2, default_przekroj_kw="COICOP 2018", default_poz_kw="062")
+pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "COICOP 2018", "062")
+pr2, poz2 = render_slot_optional(r1c2, "slot2", 2, default_przekroj_kw="COICOP 1999", default_poz_kw="06.2.1")
 
 pr3, poz3 = None, None
 pr4, poz4 = None, None
@@ -197,7 +198,7 @@ if st.session_state.n_slots >= 3:
                                      default_przekroj_kw="COICOP 2018", default_poz_kw="064")
     if st.session_state.n_slots >= 4:
         pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True,
-                                         default_przekroj_kw="COICOP 2018", default_poz_kw="06")
+                                         default_przekroj_kw="COICOP 2018", default_poz_kw="063")
 
 if st.session_state.n_slots < 4:
     st.button("＋ Dodaj wskaźnik", key="add_slot",
