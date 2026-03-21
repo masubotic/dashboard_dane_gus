@@ -113,10 +113,38 @@ available_przekroje = sorted(df_base["nazwa-przekroj"].dropna().unique())
 BRAK = "- brak -"
 
 
+def _deduplicate_pozycje(pozycje: list[str]) -> list[str]:
+    """Usuwa kody będące jedynym dzieckiem rodzica o tej samej nazwie (np. 06410 → 0641)."""
+    def parse(s: str) -> tuple[str, str]:
+        code, _, name = s.partition(" - ")
+        return code.strip(), name.strip()
+
+    result = list(pozycje)
+    while True:
+        code_map = {parse(p)[0]: parse(p)[1] for p in result}
+        to_remove = set()
+        for code, name in code_map.items():
+            if not code.endswith("0") or len(code) < 2:
+                continue
+            parent = code[:-1]
+            if code_map.get(parent) != name:
+                continue
+            sole_child = sum(
+                1 for c in code_map if c.startswith(parent) and len(c) == len(parent) + 1
+            ) == 1
+            if sole_child:
+                to_remove.add(code)
+        if not to_remove:
+            break
+        result = [p for p in result if parse(p)[0] not in to_remove]
+    return result
+
+
 def get_pozycje(przekroj: str) -> list[str]:
-    return sorted(
+    raw = sorted(
         df_base[df_base["nazwa-przekroj"] == przekroj]["opis-pozycja-2"].dropna().unique()
     )
+    return _deduplicate_pozycje(raw)
 
 
 if "n_slots" not in st.session_state:
