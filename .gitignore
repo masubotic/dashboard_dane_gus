@@ -17,6 +17,6 @@ wheels/
 data/*.log
 
 # My Files
-ARCHITECTURE.md
 .claude
 *.ipynb
+.obsidian

@@ -113,6 +113,26 @@ available_przekroje = sorted(df_base["nazwa-przekroj"].dropna().unique())
 BRAK = "- brak -"
 
 
+def _make_indent_func(pozycje: list[str]):
+    """format_func dla selectboxa — dodaje wcięcia odzwierciedlające poziom kodu."""
+    def get_code(s: str) -> str:
+        code, _, _ = s.partition(" - ")
+        return code.strip()
+
+    codes = [get_code(p) for p in pozycje if p != BRAK]
+    num_codes = [c for c in codes if "." not in c and c]
+    min_num_len = min((len(c) for c in num_codes), default=0)
+
+    def format_func(opt: str) -> str:
+        if opt == BRAK:
+            return opt
+        code = get_code(opt)
+        d = code.count(".") if "." in code else max(0, len(code) - min_num_len)
+        return "\u00a0" * (d * 3) + opt
+
+    return format_func
+
+
 def _deduplicate_pozycje(pozycje: list[str]) -> list[str]:
     """Usuwa kody będące jedynym dzieckiem rodzica o tej samej nazwie (np. 06410 → 0641)."""
     def parse(s: str) -> tuple[str, str]:
@@ -172,7 +192,8 @@ def render_slot_required(col, slot_key: str, n: int, default_przekroj_kw: str, d
             st.session_state[poz_key] = pozycje[idx(pozycje, default_poz_kw)]
         p_col, btn_col = st.columns([11, 1], vertical_alignment="center")
         with p_col:
-            poz = st.selectbox(f"Wskaźnik {n}", pozycje, key=poz_key, label_visibility="collapsed")
+            poz = st.selectbox(f"Wskaźnik {n}", pozycje, key=poz_key, label_visibility="collapsed",
+                               format_func=_make_indent_func(pozycje))
         with btn_col:
             st.button("↺", key=f"clear_{slot_key}", help="Wyczyść wskaźnik",
                       on_click=lambda k=poz_key, opts=pozycje: st.session_state.update({k: opts[0]}))
@@ -209,7 +230,8 @@ def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
             st.session_state[poz_key] = pozycje_opt[idx(pozycje_opt, default_poz_kw)] if default_poz_kw else BRAK
         p_col, btn_col = st.columns([11, 1], vertical_alignment="center")
         with p_col:
-            poz = st.selectbox(f"Wskaźnik {n}", pozycje_opt, key=poz_key, label_visibility="collapsed")
+            poz = st.selectbox(f"Wskaźnik {n}", pozycje_opt, key=poz_key, label_visibility="collapsed",
+                               format_func=_make_indent_func(pozycje_opt))
         with btn_col:
             st.button("↺", key=f"clear_{slot_key}", help="Wyczyść wskaźnik",
                       disabled=(st.session_state.get(poz_key, BRAK) == BRAK),
