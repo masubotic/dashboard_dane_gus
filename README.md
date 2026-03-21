@@ -42,8 +42,7 @@ Dane są przechowywane jako plik Parquet bezpośrednio w repozytorium. Dzięki t
 ├── scripts/
 │   └── fetch_gus.py           # skrypt pobierający dane z API GUS
 ├── app.py                     # dashboard Streamlit
-├── requirements.txt           # zależności dla Streamlit Community Cloud
-└── pyproject.toml             # zależności deweloperskie (uv)
+└── pyproject.toml             # zależności (uv)
 ```
 
 ---

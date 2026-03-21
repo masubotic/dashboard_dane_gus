@@ -1,5 +1,0 @@
-pandas>=3.0.1
-pyarrow>=23.0.1
-streamlit
-plotly
-openpyxl
