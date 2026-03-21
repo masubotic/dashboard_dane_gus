@@ -60,36 +60,36 @@ with title_col:
 st.markdown("<div style='margin-bottom: 1.5rem'></div>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------
-# Filtry — zwijany kontener
+# Filtry globalne
 # ---------------------------------------------------------------------------
 
 with st.expander("Filtry", expanded=False):
-    pcol, rcol = st.columns([1, 1])
-    przekroje = sorted(df["nazwa-przekroj"].dropna().unique())
-    with pcol:
-        przekroj = st.selectbox("Przekrój", przekroje, index=idx(przekroje, "COICOP 1999"))
-
-    df_p = df[df["nazwa-przekroj"] == przekroj]
-
-    tcol, mcol, _ = st.columns([2, 3, 5])
-
+    tcol, mcol = st.columns([1, 2])
     with tcol:
         tryb = st.radio("Tryb okresu", ["Narastający", "Miesięczny"])
-
-    if tryb == "Narastający":
-        df_p = df_p[df_p["opis-okres"].str.contains("miesiąc - dane narastające", na=False, case=False)]
-    else:
-        df_p = df_p[df_p["opis-okres"].str.contains("dane miesięczne", na=False, case=False)]
-
     with mcol:
         selected_months = st.multiselect("Miesiące", MONTH_NAMES, default=MONTH_NAMES)
 
+    if tryb == "Narastający":
+        df_t = df[df["opis-okres"].str.contains("miesiąc - dane narastające", na=False, case=False)]
+    else:
+        df_t = df[df["opis-okres"].str.contains("dane miesięczne", na=False, case=False)]
+
     if selected_months:
         nums = {MONTH_NAMES.index(m) + 1 for m in selected_months}
-        df_p = df_p[df_p["opis-okres"].apply(get_period_month_num).isin(nums)]
+        df_t = df_t[df_t["opis-okres"].apply(get_period_month_num).isin(nums)]
 
-    min_rok = int(df_p["id-rok"].min())
-    max_rok = int(df_p["id-rok"].max())
+    pcol, rcol = st.columns([1, 1])
+    prezentacje = sorted(df_t["sposob-prezentacji"].dropna().unique())
+    with pcol:
+        prezentacja = st.selectbox(
+            "Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny")
+        )
+
+    df_prez = df_t[df_t["sposob-prezentacji"] == prezentacja]
+
+    min_rok = int(df_prez["id-rok"].min())
+    max_rok = int(df_prez["id-rok"].max())
     with rcol:
         if min_rok < max_rok:
             rok_od, rok_do = st.slider(
@@ -103,95 +103,128 @@ with st.expander("Filtry", expanded=False):
             st.text_input("Zakres lat", value=str(min_rok), disabled=True)
             rok_od, rok_do = min_rok, max_rok
 
-    scol, _ = st.columns([1, 1])
-    prezentacje = sorted(df_p["sposob-prezentacji"].dropna().unique())
-    with scol:
-        prezentacja = st.selectbox(
-            "Sposób prezentacji", prezentacje, index=idx(prezentacje, "analogiczny")
-        )
-
-    df_p = df_p[df_p["sposob-prezentacji"] == prezentacja]
-
-df_filtered = df_p[df_p["id-rok"].between(rok_od, rok_do)].copy()
-df_filtered["month_num"] = df_filtered["opis-okres"].apply(get_period_month_num)
-df_filtered["date"] = pd.to_datetime(
-    df_filtered["id-rok"].astype(str) + "-"
-    + df_filtered["month_num"].astype(str).str.zfill(2),
-    format="%Y-%m",
-)
+df_base = df_prez[df_prez["id-rok"].between(rok_od, rok_do)].copy()
+available_przekroje = sorted(df_base["nazwa-przekroj"].dropna().unique())
 
 # ---------------------------------------------------------------------------
-# Wybór pozycji — 2 rzędy po 2 kolumny
-# Pozycja 1: wymagana | Pozycje 2-4: opcjonalne (clearable)
+# Sloty wyboru pozycji — przekrój + pozycja, 2×2
 # ---------------------------------------------------------------------------
 
-pozycje = sorted(df_filtered["opis-pozycja-2"].dropna().unique())
 BRAK = "- brak -"
-pozycje_opt = [BRAK] + list(pozycje)
 
-def opt_idx(keyword: str) -> int:
-    for i, p in enumerate(pozycje):
-        if keyword.lower() in p.lower():
-            return i + 1  # +1 bo BRAK jest pierwsze
-    return 0
 
-if len(pozycje) < 1:
-    st.warning("Za mało danych dla wybranych filtrów.")
-    st.stop()
+def get_pozycje(przekroj: str) -> list[str]:
+    return sorted(
+        df_base[df_base["nazwa-przekroj"] == przekroj]["opis-pozycja-2"].dropna().unique()
+    )
 
-def clearable_selectbox(label: str, key: str, default_keyword: str | None = None):
-    """Selectbox z przyciskiem ✕ do czyszczenia. Zwraca wybraną wartość lub None."""
-    sel_col, btn_col = st.columns([11, 1])
-    with sel_col:
-        val = st.selectbox(
-            label, pozycje_opt, key=key,
-            index=opt_idx(default_keyword) if default_keyword else 0,
+
+def render_slot_required(col, slot_key: str, default_przekroj_kw: str, default_poz_kw: str):
+    with col:
+        pr = st.selectbox(
+            "Przekrój",
+            available_przekroje,
+            index=idx(available_przekroje, default_przekroj_kw),
+            key=f"{slot_key}_przekroj",
         )
-    with btn_col:
-        st.markdown('<div style="margin-top: 1.75rem"></div>', unsafe_allow_html=True)
-        st.button("✕", key=f"clear_{key}", help="Wyczyść",
-                  disabled=(val == BRAK),
-                  on_click=lambda k=key: st.session_state.update({k: BRAK}))
-    return val
+        pozycje = get_pozycje(pr)
+        if not pozycje:
+            st.warning("Brak pozycji dla tego przekroju.")
+            return None, None
+        p_col, _ = st.columns([11, 1])
+        with p_col:
+            poz = st.selectbox(
+                "Pozycja 1",
+                pozycje,
+                index=idx(pozycje, default_poz_kw),
+                key=f"{slot_key}_poz",
+            )
+        return pr, poz
+
+
+def render_slot_optional(col, slot_key: str, label: str):
+    with col:
+        poz_key = f"{slot_key}_poz"
+        pr = st.selectbox(
+            "Przekrój",
+            available_przekroje,
+            index=idx(available_przekroje, "COICOP 1999"),
+            key=f"{slot_key}_przekroj",
+        )
+        pozycje_opt = [BRAK] + get_pozycje(pr)
+        p_col, btn_col = st.columns([11, 1])
+        with p_col:
+            poz = st.selectbox(label, pozycje_opt, key=poz_key)
+        with btn_col:
+            st.markdown('<div style="margin-top: 1.75rem"></div>', unsafe_allow_html=True)
+            st.button(
+                "✕", key=f"clear_{slot_key}",
+                help="Wyczyść",
+                disabled=(poz == BRAK),
+                on_click=lambda k=poz_key: st.session_state.update({k: BRAK}),
+            )
+        if poz == BRAK:
+            return None, None
+        return pr, poz
+
 
 r1c1, r1c2 = st.columns(2)
 r2c1, r2c2 = st.columns(2)
 
-with r1c1:
-    p1_col, _ = st.columns([11, 1])
-    with p1_col:
-        poz1 = st.selectbox("Pozycja 1", pozycje, index=idx(pozycje, "Usługi lekarskie"))
-with r1c2:
-    poz2 = clearable_selectbox("Pozycja 2", "poz2", "Zdrowie")
-with r2c1:
-    poz3 = clearable_selectbox("Pozycja 3", "poz3")
-with r2c2:
-    poz4 = clearable_selectbox("Pozycja 4", "poz4")
+pr1, poz1 = render_slot_required(r1c1, "slot1", "COICOP 1999", "Usługi lekarskie")
+pr2, poz2 = render_slot_optional(r1c2, "slot2", "Pozycja 2")
+pr3, poz3 = render_slot_optional(r2c1, "slot3", "Pozycja 3")
+pr4, poz4 = render_slot_optional(r2c2, "slot4", "Pozycja 4")
 
-selected_pozycje = [p for p in [poz1, poz2, poz3, poz4] if p != BRAK]
+slots = [(pr, poz) for pr, poz in [(pr1, poz1), (pr2, poz2), (pr3, poz3), (pr4, poz4)] if pr and poz]
 
-# ---------------------------------------------------------------------------
-# Wykres
-# ---------------------------------------------------------------------------
-
-df_chart = df_filtered[df_filtered["opis-pozycja-2"].isin(selected_pozycje)].copy()
-
-if df_chart.empty:
-    st.warning("Brak danych dla wybranych pozycji.")
+if not slots:
+    st.warning("Wybierz co najmniej jedną pozycję.")
     st.stop()
 
-group_cols = ["opis-pozycja-2", "date"]
+# ---------------------------------------------------------------------------
+# Zbieranie danych z aktywnych slotów
+# ---------------------------------------------------------------------------
+
+multi_przekroj = len({pr for pr, _ in slots}) > 1
+
+frames = []
+for pr, poz in slots:
+    df_slot = df_base[
+        (df_base["nazwa-przekroj"] == pr) &
+        (df_base["opis-pozycja-2"] == poz)
+    ].copy()
+    df_slot["_label"] = f"{poz} ({pr})" if multi_przekroj else poz
+    frames.append(df_slot)
+
+df_chart = pd.concat(frames, ignore_index=True)
+
+df_chart["month_num"] = df_chart["opis-okres"].apply(get_period_month_num)
+df_chart["date"] = pd.to_datetime(
+    df_chart["id-rok"].astype(str) + "-" + df_chart["month_num"].astype(str).str.zfill(2),
+    format="%Y-%m",
+)
+
+group_cols = ["_label", "date"]
 if df_chart.groupby(group_cols).size().max() > 1:
     df_chart = df_chart.groupby(group_cols, as_index=False)["wartosc"].mean()
 
 df_chart = df_chart.sort_values(group_cols)
 
+# ---------------------------------------------------------------------------
+# Wykres
+# ---------------------------------------------------------------------------
+
+if df_chart.empty:
+    st.warning("Brak danych dla wybranych pozycji.")
+    st.stop()
+
 show_labels = st.toggle("Etykiety na wykresie", value=True)
 
 if show_labels:
-    n_points = df_chart.groupby("opis-pozycja-2").size().max()
+    n_points = df_chart.groupby("_label").size().max()
     step = max(1, n_points // 12)
-    df_chart["_rank"] = df_chart.groupby("opis-pozycja-2").cumcount()
+    df_chart["_rank"] = df_chart.groupby("_label").cumcount()
     df_chart["_text"] = df_chart.apply(
         lambda r: str(round(r["wartosc"], 1)) if r["_rank"] % step == 0 else "", axis=1
     )
@@ -207,14 +240,14 @@ fig = px.line(
     df_chart,
     x="date",
     y="wartosc",
-    color="opis-pozycja-2",
+    color="_label",
     markers=True,
     text=text_col,
-    custom_data=["_date_label", "wartosc", "opis-pozycja-2"],
+    custom_data=["_date_label", "wartosc", "_label"],
     labels={
         "date": "Data",
         "wartosc": "Wartość",
-        "opis-pozycja-2": "Pozycja",
+        "_label": "Pozycja",
     },
 )
 if show_labels:
@@ -227,12 +260,16 @@ fig.update_traces(
         "<extra></extra>"
     )
 )
+
+title_parts = " | ".join(f"{poz} ({pr})" if multi_przekroj else poz for pr, poz in slots)
+subtitle = f"{tryb}  |  {prezentacja}"
+
 fig.update_layout(
     title=dict(
-        text="  |  ".join(selected_pozycje),
+        text=title_parts,
         font=dict(size=22),
         subtitle=dict(
-            text=f"{przekroj}  |  {tryb}  |  {prezentacja}",
+            text=subtitle,
             font=dict(size=13),
         ),
     ),
@@ -246,17 +283,16 @@ st.plotly_chart(fig)
 # ---------------------------------------------------------------------------
 
 with st.expander("Dane źródłowe"):
-    df_export = df_chart[["opis-pozycja-2", "date", "wartosc"]].copy()
+    df_export = df_chart[["_label", "date", "wartosc"]].copy()
     df_export["date"] = df_export["date"].dt.date
-    df_export["przekroj"] = przekroj
     df_export["sposob_prezentacji"] = prezentacja
     df_export["tryb_okresu"] = tryb
     df_export = df_export.rename(columns={
-        "opis-pozycja-2": "pozycja",
+        "_label": "pozycja",
         "date": "data",
         "wartosc": "wartosc",
     })
-    df_export = df_export[["przekroj", "tryb_okresu", "sposob_prezentacji", "pozycja", "data", "wartosc"]]
+    df_export = df_export[["tryb_okresu", "sposob_prezentacji", "pozycja", "data", "wartosc"]]
 
     buf = io.BytesIO()
     df_export.to_excel(buf, index=False, engine="openpyxl")
