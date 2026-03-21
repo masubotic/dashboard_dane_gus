@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-st.set_page_config(page_title="Dashboard CPI — GUS", layout="wide")
+st.set_page_config(page_title="Dashboard CPI GUS", layout="wide")
 
 MONTH_ORDER = {
     "styczeń": 1, "luty": 2, "marzec": 3, "kwiecień": 4,
@@ -295,7 +295,7 @@ fig = px.line(
     labels={
         "date": "Data",
         "wartosc": "Wartość",
-        "_label": "Pozycja",
+        "_label": "Wskaźnik (przekrój)",
     },
 )
 if show_labels:
@@ -310,17 +310,20 @@ fig.update_traces(
 )
 
 subtitle_parts = "  |  ".join(poz for _, poz in slots)
+title_text = subtitle_parts if len(subtitle_parts) <= 156 else subtitle_parts[:153] + "..."
 
 fig.update_layout(
     title=dict(
-        text=f"{prezentacja}  |  {tryb}",
+        text=title_text,
         font=dict(size=22),
         subtitle=dict(
-            text=subtitle_parts,
+            text=f"{prezentacja}  |  {tryb}",
             font=dict(size=13),
         ),
     ),
-    legend=dict(orientation="h", yanchor="bottom", y=-0.3),
+    legend=dict(orientation="h", yanchor="top", y=-0.18, xanchor="left", x=0),
+    margin=dict(t=100, b=150),
+    height=540,
 )
 
 st.plotly_chart(fig)
