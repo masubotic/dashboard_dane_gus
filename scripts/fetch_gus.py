@@ -25,7 +25,7 @@ import requests
 # ---------------------------------------------------------------------------
 
 PARQUET_PATH = Path("data/gus_data.parquet")
-YEARS = list(range(2015, 2026))
+YEARS = list(range(2015, datetime.now().year + 1))
 VARIABLE_FILTER = "Wskaźniki cen towarów i usług konsumpcyjnych"
 KEY_COLUMNS = [
     "opis-pozycja-3", "opis-pozycja-2", "opis-okres",
