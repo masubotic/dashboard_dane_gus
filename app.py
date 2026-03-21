@@ -119,62 +119,89 @@ def get_pozycje(przekroj: str) -> list[str]:
     )
 
 
-def render_slot_required(col, slot_key: str, default_przekroj_kw: str, default_poz_kw: str):
+if "n_slots" not in st.session_state:
+    st.session_state.n_slots = 2
+
+
+def render_slot_required(col, slot_key: str, n: int, default_przekroj_kw: str, default_poz_kw: str):
     with col:
+        st.markdown(f"**Przekrój {n}**")
         pr = st.selectbox(
             "Przekrój",
             available_przekroje,
             index=idx(available_przekroje, default_przekroj_kw),
             key=f"{slot_key}_przekroj",
+            label_visibility="collapsed",
         )
         pozycje = get_pozycje(pr)
         if not pozycje:
             st.warning("Brak pozycji dla tego przekroju.")
             return None, None
-        p_col, _ = st.columns([11, 1])
-        with p_col:
-            poz = st.selectbox(
-                "Pozycja 1",
-                pozycje,
-                index=idx(pozycje, default_poz_kw),
-                key=f"{slot_key}_poz",
-            )
+        poz = st.selectbox(
+            "Pozycja",
+            pozycje,
+            index=idx(pozycje, default_poz_kw),
+            key=f"{slot_key}_poz",
+            label_visibility="collapsed",
+        )
         return pr, poz
 
 
-def render_slot_optional(col, slot_key: str, label: str):
+def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
+                         default_przekroj_kw: str = "COICOP 1999", default_poz_kw: str | None = None):
     with col:
         poz_key = f"{slot_key}_poz"
+        hdr_col, btn_col = st.columns([6, 1])
+        with hdr_col:
+            st.markdown(f"**Przekrój {n}**")
+        with btn_col:
+            if removable:
+                def _remove(k=poz_key):
+                    st.session_state[k] = BRAK
+                    st.session_state.n_slots -= 1
+                st.button("✕", key=f"remove_{slot_key}", help="Usuń serię", on_click=_remove)
         pr = st.selectbox(
             "Przekrój",
             available_przekroje,
-            index=idx(available_przekroje, "COICOP 1999"),
+            index=idx(available_przekroje, default_przekroj_kw),
             key=f"{slot_key}_przekroj",
+            label_visibility="collapsed",
         )
         pozycje_opt = [BRAK] + get_pozycje(pr)
-        p_col, btn_col = st.columns([11, 1])
-        with p_col:
-            poz = st.selectbox(label, pozycje_opt, key=poz_key)
-        with btn_col:
-            st.markdown('<div style="margin-top: 1.75rem"></div>', unsafe_allow_html=True)
-            st.button(
-                "✕", key=f"clear_{slot_key}",
-                help="Wyczyść",
-                disabled=(poz == BRAK),
-                on_click=lambda k=poz_key: st.session_state.update({k: BRAK}),
-            )
+        default_poz_index = idx(pozycje_opt, default_poz_kw) if default_poz_kw else 0
+        poz = st.selectbox(
+            "Pozycja",
+            pozycje_opt,
+            index=default_poz_index,
+            key=poz_key,
+            label_visibility="collapsed",
+        )
         if poz == BRAK:
             return None, None
         return pr, poz
 
 
 r1c1, r1c2 = st.columns(2)
-r2c1, r2c2 = st.columns(2)
+pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "COICOP 1999", "Usługi lekarskie")
+pr2, poz2 = render_slot_optional(r1c2, "slot2", 2, default_przekroj_kw="COICOP 2018", default_poz_kw="062")
 
-pr1, poz1 = render_slot_required(r1c1, "slot1", "COICOP 1999", "Usługi lekarskie")
-pr2, poz2 = render_slot_optional(r1c2, "slot2", "Pozycja 2")
-pr3, poz3 = render_slot_optional(r2c1, "slot3", "Pozycja 3")
-pr4, poz4 = render_slot_optional(r2c2, "slot4", "Pozycja 4")
+pr3, poz3 = None, None
+pr4, poz4 = None, None
+
+if st.session_state.n_slots >= 3:
+    r2c1, r2c2 = st.columns(2)
+    is_last = st.session_state.n_slots == 3
+    pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=is_last)
+    if st.session_state.n_slots >= 4:
+        pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True)
+    else:
+        with r2c2:
+            st.markdown("&nbsp;", unsafe_allow_html=True)
+            st.button("＋ Dodaj przekrój", key="add_slot4",
+                      on_click=lambda: st.session_state.update({"n_slots": 4}))
+else:
+    st.button("＋ Dodaj przekrój", key="add_slot3",
+              on_click=lambda: st.session_state.update({"n_slots": 3}))
 
 slots = [(pr, poz) for pr, poz in [(pr1, poz1), (pr2, poz2), (pr3, poz3), (pr4, poz4)] if pr and poz]
 
