@@ -125,9 +125,9 @@ if "n_slots" not in st.session_state:
 
 def render_slot_required(col, slot_key: str, n: int, default_przekroj_kw: str, default_poz_kw: str):
     with col:
-        st.markdown(f"**Przekrój {n}**")
+        st.markdown(f"**Przekrój i wskaźnik ({n})**")
         pr = st.selectbox(
-            "Przekrój",
+            f"Przekrój {n}",
             available_przekroje,
             index=idx(available_przekroje, default_przekroj_kw),
             key=f"{slot_key}_przekroj",
@@ -137,13 +137,15 @@ def render_slot_required(col, slot_key: str, n: int, default_przekroj_kw: str, d
         if not pozycje:
             st.warning("Brak pozycji dla tego przekroju.")
             return None, None
-        poz = st.selectbox(
-            "Pozycja",
-            pozycje,
-            index=idx(pozycje, default_poz_kw),
-            key=f"{slot_key}_poz",
-            label_visibility="collapsed",
-        )
+        poz_key = f"{slot_key}_poz"
+        if poz_key not in st.session_state or st.session_state[poz_key] not in pozycje:
+            st.session_state[poz_key] = pozycje[idx(pozycje, default_poz_kw)]
+        p_col, btn_col = st.columns([11, 1], vertical_alignment="center")
+        with p_col:
+            poz = st.selectbox(f"Wskaźnik {n}", pozycje, key=poz_key, label_visibility="collapsed")
+        with btn_col:
+            st.button("↺", key=f"clear_{slot_key}", help="Wyczyść wskaźnik",
+                      on_click=lambda k=poz_key, opts=pozycje: st.session_state.update({k: opts[0]}))
         return pr, poz
 
 
@@ -151,31 +153,32 @@ def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
                          default_przekroj_kw: str = "COICOP 1999", default_poz_kw: str | None = None):
     with col:
         poz_key = f"{slot_key}_poz"
-        hdr_col, btn_col = st.columns([6, 1])
-        with hdr_col:
-            st.markdown(f"**Przekrój {n}**")
+        st.markdown(f"**Przekrój i wskaźnik ({n})**")
+        pr_col, btn_col = st.columns([11, 1], vertical_alignment="center")
+        with pr_col:
+            pr = st.selectbox(
+                f"Przekrój {n}",
+                available_przekroje,
+                index=idx(available_przekroje, default_przekroj_kw),
+                key=f"{slot_key}_przekroj",
+                label_visibility="collapsed",
+            )
         with btn_col:
             if removable:
                 def _remove(k=poz_key):
                     st.session_state[k] = BRAK
                     st.session_state.n_slots -= 1
                 st.button("✕", key=f"remove_{slot_key}", help="Usuń serię", on_click=_remove)
-        pr = st.selectbox(
-            "Przekrój",
-            available_przekroje,
-            index=idx(available_przekroje, default_przekroj_kw),
-            key=f"{slot_key}_przekroj",
-            label_visibility="collapsed",
-        )
         pozycje_opt = [BRAK] + get_pozycje(pr)
-        default_poz_index = idx(pozycje_opt, default_poz_kw) if default_poz_kw else 0
-        poz = st.selectbox(
-            "Pozycja",
-            pozycje_opt,
-            index=default_poz_index,
-            key=poz_key,
-            label_visibility="collapsed",
-        )
+        if poz_key not in st.session_state or st.session_state[poz_key] not in pozycje_opt:
+            st.session_state[poz_key] = pozycje_opt[idx(pozycje_opt, default_poz_kw)] if default_poz_kw else BRAK
+        p_col, btn_col = st.columns([11, 1], vertical_alignment="center")
+        with p_col:
+            poz = st.selectbox(f"Wskaźnik {n}", pozycje_opt, key=poz_key, label_visibility="collapsed")
+        with btn_col:
+            st.button("↺", key=f"clear_{slot_key}", help="Wyczyść wskaźnik",
+                      disabled=(st.session_state.get(poz_key, BRAK) == BRAK),
+                      on_click=lambda k=poz_key: st.session_state.update({k: BRAK}))
         if poz == BRAK:
             return None, None
         return pr, poz
@@ -190,18 +193,15 @@ pr4, poz4 = None, None
 
 if st.session_state.n_slots >= 3:
     r2c1, r2c2 = st.columns(2)
-    is_last = st.session_state.n_slots == 3
-    pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=is_last)
+    pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=(st.session_state.n_slots == 3),
+                                     default_przekroj_kw="COICOP 2018", default_poz_kw="064")
     if st.session_state.n_slots >= 4:
-        pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True)
-    else:
-        with r2c2:
-            st.markdown("&nbsp;", unsafe_allow_html=True)
-            st.button("＋ Dodaj przekrój", key="add_slot4",
-                      on_click=lambda: st.session_state.update({"n_slots": 4}))
-else:
-    st.button("＋ Dodaj przekrój", key="add_slot3",
-              on_click=lambda: st.session_state.update({"n_slots": 3}))
+        pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True,
+                                         default_przekroj_kw="COICOP 2018", default_poz_kw="06")
+
+if st.session_state.n_slots < 4:
+    st.button("＋ Dodaj wskaźnik", key="add_slot",
+              on_click=lambda: st.session_state.update({"n_slots": st.session_state.n_slots + 1}))
 
 slots = [(pr, poz) for pr, poz in [(pr1, poz1), (pr2, poz2), (pr3, poz3), (pr4, poz4)] if pr and poz]
 
@@ -288,15 +288,14 @@ fig.update_traces(
     )
 )
 
-title_parts = " | ".join(f"{poz} ({pr})" if multi_przekroj else poz for pr, poz in slots)
-subtitle = f"{tryb}  |  {prezentacja}"
+subtitle_parts = "  |  ".join(poz for _, poz in slots)
 
 fig.update_layout(
     title=dict(
-        text=title_parts,
+        text=f"{prezentacja}  |  {tryb}",
         font=dict(size=22),
         subtitle=dict(
-            text=subtitle,
+            text=subtitle_parts,
             font=dict(size=13),
         ),
     ),
