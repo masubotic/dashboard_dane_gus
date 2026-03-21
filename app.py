@@ -152,26 +152,30 @@ def render_slot_required(col, slot_key: str, n: int, default_przekroj_kw: str, d
 
 
 def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
+                         on_remove=None,
                          default_przekroj_kw: str = "COICOP 1999", default_poz_kw: str | None = None):
     with col:
         poz_key = f"{slot_key}_poz"
         st.markdown(f"**Przekrój i wskaźnik ({n})**")
         pr_col, btn_col = st.columns([11, 1], vertical_alignment="center")
         with pr_col:
+            pr_key = f"{slot_key}_przekroj"
+            if pr_key not in st.session_state:
+                st.session_state[pr_key] = available_przekroje[idx(available_przekroje, default_przekroj_kw)]
             pr = st.selectbox(
                 f"Przekrój {n}",
                 available_przekroje,
-                index=idx(available_przekroje, default_przekroj_kw),
-                key=f"{slot_key}_przekroj",
+                key=pr_key,
                 label_visibility="collapsed",
             )
         with btn_col:
             if removable:
-                def _remove(k=poz_key, pk=f"{slot_key}_przekroj"):
-                    st.session_state.pop(k, None)
-                    st.session_state.pop(pk, None)
-                    st.session_state.n_slots -= 1
-                st.button("✕", key=f"remove_{slot_key}", help="Usuń serię", on_click=_remove)
+                if on_remove is None:
+                    def on_remove(k=poz_key, pk=f"{slot_key}_przekroj"):
+                        st.session_state.pop(k, None)
+                        st.session_state.pop(pk, None)
+                        st.session_state.n_slots -= 1
+                st.button("✕", key=f"remove_{slot_key}", help="Usuń serię", on_click=on_remove)
         pozycje_opt = [BRAK] + get_pozycje(pr)
         if poz_key not in st.session_state or st.session_state[poz_key] not in pozycje_opt:
             st.session_state[poz_key] = pozycje_opt[idx(pozycje_opt, default_poz_kw)] if default_poz_kw else BRAK
@@ -196,7 +200,21 @@ pr4, poz4 = None, None
 
 if st.session_state.n_slots >= 3:
     r2c1, r2c2 = st.columns(2)
-    pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=(st.session_state.n_slots == 3),
+
+    def _remove_slot3():
+        if st.session_state.n_slots == 4:
+            # przenieś slot4 → slot3, schowaj slot4
+            for suffix in ["_przekroj", "_poz"]:
+                val = st.session_state.pop(f"slot4{suffix}", None)
+                if val is not None:
+                    st.session_state[f"slot3{suffix}"] = val
+            st.session_state.n_slots = 3
+        else:
+            st.session_state.pop("slot3_przekroj", None)
+            st.session_state.pop("slot3_poz", None)
+            st.session_state.n_slots = 2
+
+    pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=True, on_remove=_remove_slot3,
                                      default_przekroj_kw="COICOP 2018", default_poz_kw="064")
     if st.session_state.n_slots >= 4:
         pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True,
