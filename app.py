@@ -56,6 +56,11 @@ with img_col:
     )
 with title_col:
     st.title("Wskaźniki cen towarów i usług konsumpcyjnych")
+    try:
+        _refresh = open("data/last_refresh.txt", encoding="utf-8").read().strip()
+        st.caption(f"Ostatnie odświeżenie danych z GUS: {_refresh}")
+    except FileNotFoundError:
+        pass
 
 st.markdown("<div style='margin-bottom: 1.5rem'></div>", unsafe_allow_html=True)
 

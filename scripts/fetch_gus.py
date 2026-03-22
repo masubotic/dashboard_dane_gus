@@ -25,6 +25,7 @@ import requests
 # ---------------------------------------------------------------------------
 
 PARQUET_PATH = Path("data/gus_data.parquet")
+LAST_REFRESH_PATH = Path("data/last_refresh.txt")
 YEARS = list(range(2015, datetime.now().year + 1))
 VARIABLE_FILTER = "Wskaźniki cen towarów i usług konsumpcyjnych"
 KEY_COLUMNS = [
@@ -342,6 +343,8 @@ def main() -> None:
     df_combined.to_parquet(PARQUET_PATH, index=False)
     size_mb = PARQUET_PATH.stat().st_size / 1024**2
     logger.info(f"Zapisano {len(df_combined)} wierszy → {PARQUET_PATH} ({size_mb:.1f} MB)")
+
+    LAST_REFRESH_PATH.write_text(datetime.now().strftime("%Y-%m-%d %H:%M"), encoding="utf-8")
 
 
 if __name__ == "__main__":
