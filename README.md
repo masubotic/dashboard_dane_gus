@@ -1,4 +1,4 @@
-# Dashboard CPI — Dane GUS
+# Dashboard CPI - Dane GUS
 
 Interaktywny dashboard do wizualizacji wskaźników cen towarów i usług konsumpcyjnych (CPI) publikowanych przez Główny Urząd Statystyczny. Zbudowany w Streamlit, hostowany na Streamlit Community Cloud.
 
@@ -27,7 +27,7 @@ GitHub Actions (cron, co poniedziałek 6:00 UTC)
                     → użytkownik widzi dane natychmiast
 ```
 
-Dane są przechowywane jako plik Parquet bezpośrednio w repozytorium. Dzięki temu dashboard nie wykonuje żadnych żądań do API w czasie działania — dane są dostępne natychmiast po wejściu.
+Dane są przechowywane jako plik Parquet bezpośrednio w repozytorium. Dzięki temu dashboard nie wykonuje żadnych żądań do API w czasie działania - dane są dostępne natychmiast po wejściu.
 
 ---
 
@@ -36,7 +36,7 @@ Dane są przechowywane jako plik Parquet bezpośrednio w repozytorium. Dzięki t
 ```
 ├── .github/
 │   └── workflows/
-│       └── refresh_data.yml   # GitHub Actions — cron tygodniowy
+│       └── refresh_data.yml   # GitHub Actions - cron tygodniowy
 ├── data/
 │   └── gus_data.parquet       # dane CPI, commitowane do repo
 ├── scripts/
@@ -53,13 +53,13 @@ Skrypt `scripts/fetch_gus.py` odpytuje [API DBW GUS](https://api-dbw.stat.gov.pl
 
 ### Przyrostowe pobieranie
 
-Skrypt sprawdza które lata są już w pliku Parquet i pobiera tylko brakujące. Ostatni znany rok jest zawsze pobierany ponownie — GUS może korygować dane wstecznie.
+Skrypt sprawdza które lata są już w pliku Parquet i pobiera tylko brakujące. Ostatni znany rok jest zawsze pobierany ponownie - GUS może korygować dane wstecznie.
 
 ### Rate limiting
 
 API GUS ma dwa limity:
-- **10 żądań/sekundę** — skrypt odczekuje ułamek sekundy między żądaniami
-- **500 żądań/15 minut** — skrypt odczekuje do końca okna przy zbliżeniu się do limitu
+- **10 żądań/sekundę** - skrypt odczekuje ułamek sekundy między żądaniami
+- **500 żądań/15 minut** - skrypt odczekuje do końca okna przy zbliżeniu się do limitu
 
 Odpowiedzi `429` są obsługiwane z automatycznym retry.
 
@@ -72,7 +72,7 @@ Wynikowy DataFrame zawiera kolumny:
 | `nazwa-przekroj` | Klasyfikacja (np. COICOP 1999) |
 | `opis-pozycja-2` | Kategoria towarów/usług |
 | `opis-pozycja-3` | Podkategoria |
-| `opis-okres` | Opis okresu (np. "styczeń — dane miesięczne") |
+| `opis-okres` | Opis okresu (np. "styczeń - dane miesięczne") |
 | `sposob-prezentacji` | Sposób prezentacji wskaźnika |
 | `id-rok` | Rok |
 | `wartosc` | Wartość wskaźnika |
