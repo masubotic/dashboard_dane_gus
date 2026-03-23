@@ -90,8 +90,7 @@ Wynikowy DataFrame zawiera kolumny:
 ### Instalacja
 
 ```bash
-git clone https://github.com/<login>/dashboard_dane_gus.git
-cd dashboard_dane_gus
+git clone https://github.com/masubotic/dashboard_dane_gus
 uv sync
 ```
 
@@ -118,14 +117,6 @@ uv run streamlit run app.py
 ```
 
 ---
-
-## Deployment na Streamlit Community Cloud
-
-1. Utwórz **publiczne** repozytorium na GitHubie i wypchnij kod
-2. Dodaj secret `GUS_API_KEY` w `Settings → Secrets and variables → Actions`
-3. Wejdź na [share.streamlit.io](https://share.streamlit.io), zaloguj się GitHubem
-4. Utwórz nową aplikację wskazując `app.py` jako plik główny
-5. Streamlit automatycznie redeploy'uje aplikację przy każdym nowym commicie
 
 ### Automatyczna aktualizacja danych
 
