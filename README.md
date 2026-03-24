@@ -120,9 +120,7 @@ uv run streamlit run app.py
 
 ### Automatyczna aktualizacja danych
 
-GitHub Actions uruchamia skrypt co poniedziałek o 6:00 UTC. Po pobraniu nowych danych commituje zaktualizowany plik Parquet, co wyzwala automatyczny redeploy dashboardu.
-
-Workflow można też uruchomić ręcznie: `Actions → Refresh GUS data → Run workflow`.
+GitHub Actions uruchamia skrypt co poniedziałek o 6:00 UTC, po pobraniu nowych danych następuje automatyczny redeploy dashboardu.
 
 ---
 
