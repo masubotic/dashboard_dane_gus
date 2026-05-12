@@ -248,7 +248,7 @@ def render_slot_optional(col, slot_key: str, n: int, removable: bool = False,
 
 with st.expander("Przekroje i wskaźniki", expanded=True):
     r1c1, r1c2 = st.columns(2)
-    pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "COICOP 2018", "062")
+    pr1, poz1 = render_slot_required(r1c1, "slot1", 1, "dane od 2026", "062")
     pr2, poz2 = render_slot_optional(r1c2, "slot2", 2, default_przekroj_kw="COICOP 1999", default_poz_kw="06.2.1")
 
     pr3, poz3 = None, None
@@ -271,10 +271,10 @@ with st.expander("Przekroje i wskaźniki", expanded=True):
                 st.session_state.n_slots = 2
 
         pr3, poz3 = render_slot_optional(r2c1, "slot3", 3, removable=True, on_remove=_remove_slot3,
-                                         default_przekroj_kw="COICOP 2018", default_poz_kw="064")
+                                         default_przekroj_kw="dane od 2026", default_poz_kw="064")
         if st.session_state.n_slots >= 4:
             pr4, poz4 = render_slot_optional(r2c2, "slot4", 4, removable=True,
-                                             default_przekroj_kw="COICOP 2018", default_poz_kw="063")
+                                             default_przekroj_kw="dane od 2026", default_poz_kw="063")
 
     if st.session_state.n_slots < 4:
         st.button("＋ Dodaj wskaźnik", key="add_slot",
