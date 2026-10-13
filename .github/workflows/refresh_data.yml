@@ -3,7 +3,7 @@ name: Refresh GUS data
 on:
   schedule:
     - cron: "0 6 * * 1"  # każdy poniedziałek o 6:00 UTC
-  workflow_dispatch:      # ręczne uruchomienie
+  workflow_dispatch:      # ręczne uruchomienie: Actions → Refresh GUS data → Run workflow
 
 permissions:
   contents: write
